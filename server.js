@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // VERİ
 // ============================================================
 const quizQuestions = [
-    { difficulty:'easy', points:[50,45,40,35,30], image:'📖', question:'"Kitap kurdu" ifadesi ne anlama gelir?', options:['Çok kitap okuyan kişi','Kitap satan kişi','Kitap yazan kişi','Kitap eleştirmeni'], correct:0 },
+    { difficulty:'easy', points:[50,45,40,35,30], image:'📖', question:'"Kitap kürdu" ifadesi ne anlama gelir?', options:['Çok kitap okuyan kişi','Kitap satan kişi','Kitap yazan kişi','Kitap eleştirmeni'], correct:0 },
     { difficulty:'easy', points:[50,45,40,35,30], image:'☕', question:'"Kahve falı" Türkiye\'nin hangi şehriyle özdeşleşmiştir?', options:['Ankara','İzmir','İstanbul','Kahramanmaraş'], correct:2 },
     { difficulty:'easy', points:[50,45,40,35,30], image:'🌉', question:'İstanbul\'u iki kıtaya bağlayan boğazın adı nedir?', options:['Çanakkale Boğazı','Marmara Boğazı','İstanbul Boğazı','Karadeniz Boğazı'], correct:2 },
     { difficulty:'medium', points:[75,70,65,60,55], image:'🎭', question:'"Bir taşla iki kuş" deyimi ne anlama gelir?', options:['Şanslı olmak','Bir işle iki sonuç elde etmek','Hızlı davranmak','İkilemde kalmak'], correct:1 },
