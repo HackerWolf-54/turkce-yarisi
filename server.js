@@ -266,11 +266,21 @@ function showQuizScores(code) {
     const room = getRoom(code);
     if (!room) return;
     const q = quizQuestions[room.currentQuestion];
+    const isLast = room.currentQuestion >= quizQuestions.length - 1;
     io.to(code).emit('show_quiz_scores', {
         scores: getScores(room),
         correctIndex: q.correct,
-        isLast: room.currentQuestion >= quizQuestions.length - 1
+        isLast
     });
+    // Sonraki soruya otomatik geç
+    if (isLast) {
+        setTimeout(() => endQuiz(code), 5000);
+    } else {
+        setTimeout(() => {
+            room.currentQuestion++;
+            sendQuestion(code);
+        }, 5000);
+    }
 }
  
 function endQuiz(code) {
@@ -339,14 +349,22 @@ function endUnluRound(code) {
     if (!room) return;
     clearInterval(room.timerInterval);
  
+    const isLast = room.currentRound >= room.players.length - 1;
     io.to(code).emit('unlu_round_end', {
         celeb: room.currentCeleb,
         narratorName: room.players[room.currentRound]?.name,
         scores: getScores(room),
-        isLast: room.currentRound >= room.players.length - 1
+        isLast
     });
  
     room.currentRound++;
+ 
+    // Sonraki tura otomatik geç
+    if (isLast) {
+        setTimeout(() => endUnlu(code), 6000);
+    } else {
+        setTimeout(() => startUnluRound(code), 6000);
+    }
 }
  
 function endUnlu(code) {
@@ -374,5 +392,7 @@ function normalize(s) {
 // ============================================================
 // SUNUCU
 // ============================================================
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => console.log(`Sunucu çalışıyor: http://localhost:${PORT}`));
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => console.log(`Sunucu çalışıyor: http://localhost:${PORT}`));
